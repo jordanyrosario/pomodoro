@@ -3,7 +3,7 @@
     <div class="timer">
       <div class="text-center flex justify-center pb-0 mb-0 mt-4 h-16">
        
-          <div >
+          <div  v-if="currentTimeInterval === onePomodoro">
             <button
               class="
                 text-lg
@@ -14,12 +14,13 @@
                 py-1.5
                 px-5
               "
-              @click="startPomodoro"
+            disabled
+             
             >
               Pomodoro
             </button >
           </div>
-          <div >
+          <div   v-if=" currentTimeInterval === oneBreak" >
             <button
               class="
                 text-lg
@@ -30,59 +31,32 @@
                 py-1.5
                 px-5
               "
-              @click="startShortBreak"
+              
+            disabled
             >
               Short Break
             </button>
           </div>
+          <div  v-if="currentTimeInterval === oneLongBreak" >
+            <button
+              class="
+                text-lg
+                ml-3
+                bg-red-300
+                hover:bg-red-400
+                rounded
+                py-1.5
+                px-5
+              "
+            disabled
+              
+            >
+              Long Break
+            </button>
+          </div>
         </div>
       </div>
-      <div class="container flex justify-center mx-auto">
-          <div class="mx-auto">
-            <h4 class="text-9xl pt-0 mx-auto mt-0 font-bold">
-              {{ timerMinutes }}:{{ timerSeconds }}
-            </h4>
-            <div class="button-toggle flex justify-center">
-              <button
-                class="
-                  text-4xl
-                  mt-4
-                  rounded
-                  font-bold
-                  px-14
-                  py-3
-                  mx-auto
-                  shadow-lg
-                  bg-red-600
-                  hover:shadow-xl
-                  hover:bg-red-700
-                "
-                @click="start"
-                v-if="isActive === false"
-              >
-                START
-              </button>
-              <button
-                class="
-                  text-4xl
-                  mt-4
-                  rounded
-                  font-bold
-                  px-14
-                  py-3
-                  shadow-lg
-                  bg-red-600
-                  hover:shadow-xl
-                  hover:bg-red-700
-                "
-                @click="stop"
-                v-if="isActive === true"
-              >
-                STOP
-              </button>
-            </div>
-          </div>
-      </div>
+     <timer :time="currentTimeInterval" @stopped="setTimeInteverval" @reset="reset"/>
   
 
 
@@ -126,7 +100,7 @@
 
 
       <div v-for="task in tasks" :key="task.title" id="task.title">
-          <task :task="task"  />
+          <task :task="task"  @delete="deleteTask"/>
         
       </div>
     </div>
@@ -135,21 +109,26 @@
 </template>
 <script>
 import Task from '../Task/Task.vue';
-const notificationSound = new require("@/assets/beep-06.mp3").default;
+import Timer from './Timer/Timer';
 export default {
-  components: { Task },
+  components: { Task, Timer },
   name: "Home",
   data() {
     return {
-      minutes: 25,
+     onePomodoro: 25,
+      oneLongBreak: 15,
+      oneBreak: 5,
+      currentTimeInterval: 25,
+      pomodoros: 1,
+      
       isActive: false,
       tasks: [
       
       ],
       addtask: "",
-      timerType: 0,
       totalSeconds: 25 * 60,
       pomodoroInstance: null,
+      
     };
   },
   computed: {
@@ -167,43 +146,31 @@ export default {
   },
   methods: {
 
-    startPomodoro(){
-        this.totalSeconds = 25 * 60;
-        this.start();
-    },
-    startShortBreak(){
-        this.totalSeconds = 5 * 60;
-        this.start();
-    },
-    formatTime(time) {
-      if (time < 10) {
-        return "0" + time;
-      }
-      return time.toString();
-    },
-  
-    start() {
-      this.pomodoroInstance = setInterval(() => {
-        this.totalSeconds -= 1;
-        if (
-          Math.floor(this.totalSeconds / 60) === 0 &&
-          this.totalSeconds % 60 === 0
-        ) {
-          var audio = new Audio(this.notificationSound);
-          audio.play();
-          clearInterval(this.pomodoroInstance);
-          (this.totalSeconds = 25 * 60), (this.isActive = false);
-          console.log(audio);
-        }
-      }, 1000);
-      this.isActive = true;
-    },
-    
-    stop() {
-      clearInterval(this.pomodoroInstance);
-      this.isActive = false;
-    },
-    
+      setTimeInteverval(){
+            if((this.pomodoros % 4) !== 0 && this.currentTimeInterval === this.onePomodoro ) 
+                  {   
+                      this.currentTimeInterval = this.oneBreak ;
+                      console.log({"current": this.currentTimeInterval});
+                  }else
+                    if((this.pomodoros % 4) !== 0 && this.currentTimeInterval === this.oneLongBreak ) 
+                        {this.currentTimeInterval = this.onePomodoro
+                        console.log({"current": this.currentTimeInterval})
+                     }else
+                    if((this.pomodoros % 4) !== 0 && this.currentTimeInterval === this.oneBreak ) 
+                        {this.currentTimeInterval = this.onePomodoro
+                         this.pomodoros += 1;
+                        console.log({"current": this.currentTimeInterval})
+                     }else
+                        if((this.pomodoros % 4) === 0 && this.currentTimeInterval !== this.oneLongBreak ) 
+                            { 
+                                this.currentTimeInterval = this.oneLongBreak
+                                this.pomodoros += 1;
+                                console.log({"current": this.currentTimeInterval})
+                            }
+
+            
+      },
+       
     addTasks() {
       if (this.addtask === "") {
         alert("First add a task to proceed");
@@ -218,10 +185,17 @@ export default {
         console.log("Task has been updated successfully");
       }
     },
-    
-    // deleteTask(id) {
-    //   this.tasks = this.tasks.filter((task) => task.title !== id);
-    // },
+    reset(){
+            this.pomodoros = 1;
+            this.currentTimeInterval = this.onePomodoro ;
+    },
+    deleteTask(id) {
+
+        if (confirm("Are you sure?") ) {
+       this.tasks = this.tasks.filter((task) => task.title !== id);
+        }
+   
+    },
   },
 };
 </script>

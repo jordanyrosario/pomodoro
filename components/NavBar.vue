@@ -1,7 +1,7 @@
 <template>
 <div>    
     
-<nav class="bg-white shadow-lg">
+<nav class="bg-white shadow-lg dark:bg-gray-800" >
   <div class="container mx-auto px-4 md:px-0 ">
     <div class="relative flex items-center justify-between h-16">
       <div class=" flex items-center md:hidden">
@@ -37,10 +37,7 @@
         </div>
         <div class="hidden md:block  md:ml-6 ">
           <div class="flex space-x-4">
-            <!-- Current: "bg-blue-900 text-white", Default: "text-blue-300 hover:bg-blue-700 hover:text-white" -->
-            <nuxt-link to="/tasks"  class="text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-500" aria-current="page">Resumen</nuxt-link>
 
-        
             
           </div>
         </div>
@@ -56,13 +53,22 @@
 
         
       </div>
+       <select
+        v-model="$colorMode.preference"
+        class="border w-24 h-8 dark:bg-gray-900 dark:text-white dark:border-gray-700"
+      >
+        <option value="system">System</option>
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+      </select>
     </div>
   </div>
 
 
   <div class="md:hidden  absolute top-0 left-0 w-full h-full z-40 backdrop-filter backdrop-opacity-80 bg-opacity-70 bg-gray-500 transition-all ease-in-out duration-300" :class="sideMenu ? '':'hidden'" id="mobile-menu" @click="sideMenu = !sideMenu">
     
-   
+    
+    
   </div>
 </nav>
 

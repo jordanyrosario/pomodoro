@@ -41,7 +41,7 @@
           </button>
           <button
             class="pl-8 text-red-700 hover:text-white "
-            @click="$emit('deleteTask', task.title)"
+            @click="$emit('delete', task.title)"
           >
             Delete
           </button>
