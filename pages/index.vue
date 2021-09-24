@@ -1,5 +1,5 @@
 <template>
-  <div  class="dark:bg-gray-700">
+  <div  class="dark:bg-gray-800 bg-red-200 min-h-screen">
     <nav-bar/>
     <div class="conatiner mx-auto"><pomodoro/></div>
   </div>

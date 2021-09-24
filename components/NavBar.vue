@@ -1,12 +1,12 @@
 <template>
 <div>    
     
-<nav class="bg-white shadow-lg dark:bg-gray-800" >
+<nav class="bg-red-400 shadow-lg dark:bg-gray-900" >
   <div class="container mx-auto px-4 md:px-0 ">
     <div class="relative flex items-center justify-between h-16">
       <div class=" flex items-center md:hidden">
         <!-- Mobile menu button-->
-        <button  type="button" class="inline-flex items-center border border-solid border-blue-400 justify-center p-2 rounded-md text-blue-400 hover:text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
+        <button  type="button" class="inline-flex items-center border border-solid border-red-400 justify-center p-2 rounded-md text-red-400 hover:text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white dark:text-gray-100 dark:bg-gray-700 dark:border-gray-200" aria-controls="mobile-menu" aria-expanded="false">
           <span class="sr-only">Open main menu</span>
           <!--
             Icon when menu is closed.
@@ -33,7 +33,7 @@
       <div class="flex-1 flex  items-center justify-center md:items-stretch md:justify-start">
         <div class="flex-shrink-0 flex items-center">
          
-        <span>Pomodor</span>
+        <span class="text-3xl font-bold dark:text-gray-300">Pomodor</span>
         </div>
         <div class="hidden md:block  md:ml-6 ">
           <div class="flex space-x-4">
@@ -42,8 +42,8 @@
           </div>
         </div>
       </div>
-      <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-        <button @click="notify = !notify" class="p-1 rounded-full text-blue-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-blue-800 focus:ring-white">
+      <div class=" inset-y-0 right-0 flex items-center pr-2 sm:static ml-4 sm:inset-auto sm:ml-6 sm:pr-0">
+        <button @click="notify = !notify" class="p-1 rounded-full text-gray-400 dark:text-gray-50  hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
           <span class="sr-only">View notifications</span>
           <!-- Heroicon name: outline/bell -->
           <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
@@ -55,7 +55,7 @@
       </div>
        <select
         v-model="$colorMode.preference"
-        class="border w-24 h-8 dark:bg-gray-900 dark:text-white dark:border-gray-700"
+        class="border  h-8 dark:bg-gray-900 dark:text-white dark:border-gray-700"
       >
         <option value="system">System</option>
         <option value="light">Light</option>
@@ -65,11 +65,6 @@
   </div>
 
 
-  <div class="md:hidden  absolute top-0 left-0 w-full h-full z-40 backdrop-filter backdrop-opacity-80 bg-opacity-70 bg-gray-500 transition-all ease-in-out duration-300" :class="sideMenu ? '':'hidden'" id="mobile-menu" @click="sideMenu = !sideMenu">
-    
-    
-    
-  </div>
 </nav>
 
           
@@ -81,21 +76,9 @@
 
 export default {
 
-
-data:function() {
-    return{
-      sideMenu: false,
-      config: false,
-      notify: false,
-        imgSrc: "https://www.pngkey.com/png/full/121-1219231_user-default-profile.png"
-    }
-},
 methods:{
 
-  logout(){
-    this.$router.push('/login')
-    localStorage.clear()
-  }
+
 }
     
 }
@@ -103,8 +86,4 @@ methods:{
 
 <style >
 
-.mobile-menu{
-    width: 300px;
-    height: 100vh;
-}
 </style>

@@ -10,6 +10,8 @@
                 ml-3
                 bg-red-300
                 hover:bg-red-400
+                 dark:bg-gray-600
+               dark:text-white
                 rounded
                 py-1.5
                 px-5
@@ -27,6 +29,8 @@
                 ml-3
                 bg-red-300
                 hover:bg-red-400
+                 dark:bg-gray-600
+               dark:text-white
                 rounded
                 py-1.5
                 px-5
@@ -45,6 +49,8 @@
                 bg-red-300
                 hover:bg-red-400
                 rounded
+                 dark:bg-gray-600
+                dark:text-white
                 py-1.5
                 px-5
               "
@@ -75,12 +81,14 @@
               py-3
               rounded
               w-96
-              px-8
-              bg-red-600
-              hover:bg-red-800
-              text-white text-xl
+              mt-8 md:mt-2
+              ml-4 md:ml-0
+              bg-red-400
+              hover:bg-red-500
+              hover:text-white text-xl
               mb-2
-              border-l-4
+             dark:bg-gray-600
+             dark:text-white
               outline-none
               text-center
             "
@@ -96,11 +104,12 @@
         <hr class="py-4 bg-red-300 h-1 relative w-3/4" />
       </div>
 
-       <h2 class="pt-8 flex  text-2xl py-6">Tasks:</h2>
+       <h2 class="pt-8 flex ml-4 md:ml-0 text-2xl py-6  
+             dark:text-white font-bold">Tasks:</h2>
 
 
-      <div v-for="task in tasks" :key="task.title" id="task.title">
-          <task :task="task"  @delete="deleteTask"/>
+      <div class="" v-for="task in tasks" :key="task.title" id="task.title">
+          <task  class="mx-4" :task="task"  @delete="deleteTask"/>
         
       </div>
     </div>

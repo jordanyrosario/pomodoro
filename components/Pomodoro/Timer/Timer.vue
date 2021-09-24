@@ -1,7 +1,7 @@
 <template>
      <div class="container flex justify-center mx-auto">
           <div class="mx-auto">
-            <h4 class="text-9xl pt-0 mx-auto mt-0 font-bold">
+            <h4 class="text-9xl pt-0 mx-auto mt-0 font-bold dark:text-gray-300">
               {{ timerMinutes }}:{{ timerSeconds }}
             </h4>
             <div class="button-toggle flex justify-center">
@@ -18,10 +18,13 @@
                   bg-red-600
                   hover:shadow-xl
                   hover:bg-red-700
+                dark:text-gray-400
+                  dark:bg-gray-500
+                  dark-hover:text-gray-600
                 "
                 
                 @click="start"
-                v-if="!isActive "
+                v-if="!isActive || paused"
               >
                 START
               </button>
@@ -37,10 +40,13 @@
                   bg-red-600
                   hover:shadow-xl
                   hover:bg-red-700
+                   dark:text-gray-400
+                  dark:bg-gray-600
+                  dark-hover:text-gray-600
                 "
                 
                 @click="stop"
-                v-if="isActive"
+                v-if="!paused && isActive"
               >
                 STOP
               </button>
@@ -62,10 +68,10 @@ export default {
   data() {
     return {
       isActive: false,
-      timerType: 0,
       totalSeconds: this.time * 60,
       pomodoroInstance: null,
       notificationSound,
+      paused: false
     };
   },
   computed: {
@@ -89,9 +95,12 @@ export default {
       return time.toString();
     },
     
+  
+
     start() {
       this.pomodoroInstance = setInterval(() => {
         this.totalSeconds -= 1;
+        this.paused = false;
         if (
           Math.floor(this.totalSeconds / 60) === 0 &&
           this.totalSeconds % 60 === 0
@@ -99,7 +108,9 @@ export default {
           var audio = new Audio(this.notificationSound);
           
           audio.play();
-          this.$emit('stopped');
+          if(!paused)
+            this.$emit('stopped');
+
           clearInterval(this.pomodoroInstance);
 
           this.$nextTick(function(){
@@ -115,12 +126,17 @@ export default {
     // stop the timer interval
     stop() {
       clearInterval(this.pomodoroInstance);
-      this.isActive = false;
-      this.$emit('reset');
+      this.paused = true
+   
+      },
+  reset(){
+
+       this.$emit('reset');
       this.$nextTick(function(){
                 (this.totalSeconds = this.time * 60), (this.isActive = false);
             });
-      },
+  }
+
   },
 };
 </script>

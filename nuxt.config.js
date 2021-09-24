@@ -37,6 +37,9 @@ export default {
     '@nuxtjs/tailwindcss',
     
   ],
+  colorMode: {
+    classSuffix: ''
+  },
   tailwindcss: {
     jit: true,
     // add '~tailwind.config` alias
