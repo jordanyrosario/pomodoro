@@ -1,4 +1,6 @@
-# pomodor
+# Overview
+
+Simple pomodoro app and task manager written Vue/Nuxtjs and Tailwindcss
 
 ## Build Setup
 
@@ -13,11 +15,3 @@ $ npm run dev
 $ npm run build
 $ npm run start
 ```
-
-## Todo 
-
-- Automatic Timer Switching
-- Refactoring
-- Testing
-- Alerts or notifications
-- Persistant
