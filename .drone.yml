@@ -1,0 +1,13 @@
+kind: pipeline
+name: node8
+
+steps:
+- name: test
+  image: node:16
+  environment:
+    HOST: 0
+    PORT: 5000
+  commands:
+  - npm install
+  - npm run build
+  - npm run start
