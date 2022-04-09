@@ -22,8 +22,5 @@ steps:
     registry: registry.digitalocean.com/php-app
     debug: true
     
-trigger:
-  event:
-  - push
-  - pull_request
+
 
