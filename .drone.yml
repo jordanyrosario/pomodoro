@@ -17,8 +17,8 @@ steps:
       from_secret: username
     password: 
       from_secret: password
-    auto_tag: true
-    repo: registry.digitalocean.com/php-app
-    registry: registry.digitalocean.com
+    repo: registry.digitalocean.com/php-app/pomodoro
+    registry: registry.digitalocean.com/php-app
     debug: true
+    auto_tag: true
     
