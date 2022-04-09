@@ -9,4 +9,21 @@ steps:
     PORT: 5000
   commands:
   - npm install
+  - npm run build
+- name: publish
+  image: plugins/docker
+  settings:
+    username: 
+      from_secret: username
+    password: 
+      from_secret: password
+    repo: pomodoro
+    auto_tag: true
+    registry: registry.digitalocean.com/php-app
+    debug: true
+    
+trigger:
+  event:
+  - push
+  - pull_request
 
