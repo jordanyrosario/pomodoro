@@ -88,6 +88,7 @@ export default {
     },
 
     start() {
+      if(this.pomodoroInstance == null){
       this.pomodoroInstance = setInterval(() => {
         this.totalSeconds -= 1;
         this.paused = false;
@@ -98,10 +99,11 @@ export default {
           var audio = new Audio(this.notificationSound);
 
           audio.play();
-          if (!paused) this.$emit("stopped");
+          if (!paused) 
+          this.$emit("stopped");
 
           clearInterval(this.pomodoroInstance);
-
+          this.pomodoroInstance = null;
           this.$nextTick(function () {
             (this.totalSeconds = this.time * 60), (this.isActive = false);
           });
@@ -110,9 +112,12 @@ export default {
       }, 1000);
       this.isActive = true;
       this.$emit("started");
+    }
+      
     },
     stop() {
       clearInterval(this.pomodoroInstance);
+      this.pomodoroInstance = null;
       this.paused = true;
     },
     reset() {
