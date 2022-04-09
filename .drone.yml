@@ -9,5 +9,4 @@ steps:
     PORT: 5000
   commands:
   - npm install
-  - npm run build
 
