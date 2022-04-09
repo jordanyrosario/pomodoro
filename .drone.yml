@@ -17,10 +17,12 @@ steps:
       from_secret: username
     password: 
       from_secret: password
-    repo: pomodoro
+    repo: registry.digitalocean.com/php-app
     auto_tag: true
-    registry: registry.digitalocean.com/php-app
     debug: true
     
-
+  trigger:
+    event:
+    - push
+    - pull_request
 
