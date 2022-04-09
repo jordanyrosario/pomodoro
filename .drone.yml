@@ -1,13 +1,13 @@
 kind: pipeline
-name: node8
+name: pomodoro
 
 steps:
 - name: test
-  image: node:16
+  image: node:16.14.2-alpine
   environment:
     HOST: 0
     PORT: 5000
   commands:
   - npm install
   - npm run build
-  - npm run start
+
